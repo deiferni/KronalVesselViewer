@@ -437,7 +437,7 @@ namespace KronalUtils
 
             var module = part.Module<ModuleDecouple>();
             if (module.isDecoupled) return;
-            if (!module.staged) return;
+            if (!module.StagingEnabled()) return;
             if (!part.parent) return;
             Vector3 dir;
             if (module.isOmniDecoupler)
@@ -459,7 +459,7 @@ namespace KronalUtils
 
             var module = part.Module<ModuleAnchoredDecoupler>();
             if (module.isDecoupled) return;
-            if (!module.staged) return;
+            if (!module.StagingEnabled()) return;
             if (string.IsNullOrEmpty(module.explosiveNodeID)) return;
             var an = module.explosiveNodeID == "srf" ? part.srfAttachNode : part.FindAttachNode(module.explosiveNodeID);
             if (an == null || an.attachedPart == null) return;
