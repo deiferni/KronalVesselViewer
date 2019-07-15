@@ -2,7 +2,7 @@
 <#@ import namespace="System.IO" #>
 <#@ output extension=".cs" #>
 
-<#@ assembly name="EnvDTE" #><# /* This assembly provides access to Visual Studio project properties. */ #>
+
 <#
 
 	// Instructions
@@ -10,13 +10,13 @@
 	// 2.  Copy this file into the new template
 	// 3.  Update the string: versionfile with the complete path to the .version file
 	// 4.  Remove the following line from the file AssemblyInfo.cs (usually located in the "Property" folder inside your C# project):
-	//        [assembly: AssemblyFileVersion("1.0.0.0")]
+	//        [assembly: AssemblyVersion("1.0.0.0")]
 	// 5.  Add the following to the PreBuild steps:
 	//		set textTemplatingPath="%CommonProgramFiles(x86)%\Microsoft Shared\TextTemplating\$(VisualStudioVersion)\texttransform.exe"
 	//
 	//		if %textTemplatingPath%=="\Microsoft Shared\TextTemplating\$(VisualStudioVersion)\texttransform.exe" set textTemplatingPath="%CommonProgramFiles%\Microsoft Shared\TextTemplating\$(VisualStudioVersion)\texttransform.exe"
 	//
-	//		%textTemplatingPath% "$(ProjectDir)AssemblyFileVersion.tt"
+	//		%textTemplatingPath% "$(ProjectDir)AssemblyVersion.tt"
 
     int major = 0; 
     int minor = 0; 
@@ -27,7 +27,14 @@
 	int i2 = 0;
 	string s;
 
-	string versionfile =  @"D:\Users\jbb\github\KronalVesselViewer\KronalVesselViewer.version";
+	// For Visual Studio / MSBuild Build-Time Template Resolution
+	string RootDirectory = System.IO.Path.GetDirectoryName(Host.TemplateFile) + @"\..\";
+
+	//
+	// Update the following with the name of the .version file which is in the root directory
+	//
+	string versionfile = RootDirectory + "KronalVesselViewer.version";
+
 	if (!File.Exists(versionfile))
 	{
 		Write("File: " + versionfile + " missing\n");		
